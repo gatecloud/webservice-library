@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"webservice-library/route"
 
 	"github.com/gatecloud/utils"
 	"github.com/gin-gonic/gin"
@@ -25,18 +26,16 @@ type Controller interface {
 
 // BaseControl representing the structure of a RESTful API handler
 type BaseControl struct {
-	DB          *gorm.DB
-	Validate    *validator.Validate
-	Model       interface{}
-	RedisClient *redis.Client
+	route.Resource
+	Model interface{}
 }
 
 // Init inits the Control data
-func (ctrl *BaseControl) Init(db *gorm.DB, validate *validator.Validate, model interface{}, redis *redis.Client) {
+func (ctrl *BaseControl) Init(db *gorm.DB, validate *validator.Validate, redis *redis.Client, model interface{}) {
 	ctrl.DB = db
-	ctrl.Validate = validate
-	ctrl.Model = model
+	ctrl.Validator = validate
 	ctrl.RedisClient = redis
+	ctrl.Model = model
 }
 
 // Prepare corresponds http Prepare method
