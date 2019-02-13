@@ -20,7 +20,7 @@ type Route struct {
 }
 
 // Register registers the API to route
-func (r *Route) Register(action string, resourcer Resourcer) func(ctx *gin.Context) {
+func (r Route) Register(action string, resourcer Resourcer) func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		ptr := reflect.New(r.Controller)
 		methodInit := ptr.MethodByName("Init")
