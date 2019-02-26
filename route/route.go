@@ -47,3 +47,16 @@ func (r Route) Register(action string, resourcer Resourcer) func(ctx *gin.Contex
 		}
 	}
 }
+
+func DistributeRouters(r *gin.RouterGroup, routes []Route, resourcer Resourcer) {
+	for _, v := range routes {
+		r.GET("/"+v.Name, v.Register("GetAll", resourcer))
+		r.POST("/"+v.Name, v.Register("Post", resourcer))
+		r.PATCH("/"+v.Name, v.Register("Patch", resourcer))
+		r.DELETE("/"+v.Name, v.Register("Delete", resourcer))
+		r.GET("/"+v.Name+"/:id", v.Register("GetByID", resourcer))
+		r.PATCH("/"+v.Name+"/:id", v.Register("Patch", resourcer))
+		r.DELETE("/"+v.Name+"/:id", v.Register("Delete", resourcer))
+		r.OPTIONS("/"+v.Name, v.Register("Options", resourcer))
+	}
+}

@@ -19,9 +19,9 @@ func main() {
 		RedisClient: &redis.Client{},
 	}
 
-	for _, v := range route.InitRoute() {
-		router.GET("/"+v.Name, v.Register("GetAll", sr))
-	}
+	libroute.DistributeRouters(router.Group("/api"),
+		route.InitRoute(),
+		sr)
 
 	router.Run(":9090")
 }
