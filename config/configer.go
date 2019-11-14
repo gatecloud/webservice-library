@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"time"
 
-	config "github.com/zpatrick/go-config"
+	config "github.com/OscarZhou/go-config"
 )
 
 // Configer represeting the config interface of .ini file
